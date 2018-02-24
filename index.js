@@ -1,7 +1,7 @@
 const fetchKeys = require('fetch-package-keywords');
 const top = require('top-packages-category-wise');
 
-const topSelectSize = 20; // how many packages to fetch for given keyword/category
+const topSelectSize = 100; // how many packages to fetch for given keyword/category
 const defaultResultSize = 10;
 
 function sortToArray(map) {
@@ -48,15 +48,16 @@ module.exports = (package, size) => {
                 top(key, topSelectSize).then(function (pkgs) {
 
                     pkgs.forEach(function (p) {
+                        if (p === package)
+                            return;
+
                         var existing = similar.get(p);
                         similar.set(p, existing ? ++existing : 1);
                     });
 
-                    if (--remainKeys == 0) {
-                        var result = sortToArray(similar);
-                        result.splice(0, 1);
-                        resolve(result.slice(0, size));
-                    }
+                    if (--remainKeys == 0)
+                        resolve(sortToArray(similar).slice(0, size));
+
                 });
             });
         }).catch((error) => { reject(error); });

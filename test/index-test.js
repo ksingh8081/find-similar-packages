@@ -12,6 +12,20 @@ describe('find similar packages', function () {
     });
 });
 
+
+describe('find similar packages', function () {
+    describe('#valid package', function () {
+        it('should not include seed package', function (done) {
+            var seed = 'redis';
+            findSimilar(seed).then(function (packages) {
+                assert.ok(packages.length > 0);
+                assert.equal(packages.includes(seed), false);
+                done();
+            }).catch(() => { });
+        });
+    });
+});
+
 describe('find similar packages', function () {
     describe('#invalid package', function () {
         it('should return non empty array', function (done) {
