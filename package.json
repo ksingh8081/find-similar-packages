@@ -1,6 +1,6 @@
 {
   "name": "find-similar-packages",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "find packages similar to given one. Similarity is decided based on keyword matching.",
   "main": "index.js",
   "scripts": {
